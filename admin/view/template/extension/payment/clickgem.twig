@@ -1,0 +1,172 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <button type="submit" form="form-payment" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
+			<input type="hidden" name="payment_clickgem_url" value="{{ payment_clickgem_url }}">
+          <div class="tab-content">
+			
+			<div class="form-group required">
+              <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_user }}</label>
+              <div class="col-sm-10">
+                <input type="text" name="payment_clickgem_user" value="{{ payment_clickgem_user }}" placeholder="{{ entry_user }}" id="input-sort-order" class="form-control"/>
+				{% if error_user %}
+				<div class="text-danger">{{ error_user }}</div>
+				{% endif %}
+              </div>
+			  
+            </div>
+			<div class="form-group required">
+              <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_password }}</label>
+              <div class="col-sm-10">
+                <input type="text" name="payment_clickgem_password" value="{{ payment_clickgem_password }}" placeholder="{{ entry_password }}" id="input-sort-order" class="form-control"/>
+				{% if error_password %}
+				<div class="text-danger">{{ error_password }}</div>
+				{% endif %}
+              </div>
+            </div>
+			<div class="form-group required">
+              <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_signature }}</label>
+              <div class="col-sm-10">
+                <input type="text" name="payment_clickgem_signature" value="{{ payment_clickgem_signature }}" placeholder="{{ entry_signature }}" id="input-sort-order" class="form-control"/>
+				{% if error_signature %}
+				<div class="text-danger">{{ error_signature }}</div>
+				{% endif %}
+              </div>
+            </div>
+			
+			<div class="form-group">
+              <label class="col-sm-2 control-label" for="input-completed-status">{{ entry_typepayments }}</label>
+              <div class="col-sm-10">
+                <select name="payment_clickgem_typepayments" id="input-completed-status" class="form-control">
+                  {% for typepayments in clickgem_typepayments %}
+                    {% if typepayments.key == payment_clickgem_typepayments %}
+                      <option value="{{ typepayments.key }}" selected="selected">{{ typepayments.value }}</option>
+                    {% else %}
+                      <option value="{{ typepayments.key }}">{{ typepayments.value }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+			<div class="form-group">
+              <label class="col-sm-2 control-label" for="input-completed-status">{{ entry_typeorderfee }}</label>
+              <div class="col-sm-10">
+                <select name="payment_clickgem_typeorderfee" id="input-completed-status" class="form-control">
+                  {% for typeorderfee in clickgem_typeorderfee %}
+                    {% if typeorderfee.key == payment_clickgem_typeorderfee %}
+                      <option value="{{ typeorderfee.key }}" selected="selected">{{ typeorderfee.value }}</option>
+                    {% else %}
+                      <option value="{{ typeorderfee.key }}">{{ typeorderfee.value }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+			<div class="form-group">
+              <label class="col-sm-2 control-label" for="input-completed-status">{{ entry_typeinvoice }}</label>
+              <div class="col-sm-10">
+                <select name="payment_clickgem_typeinvoice" id="input-completed-status" class="form-control">
+                  {% for typeinvoice in clickgem_typeinvoice %}
+                    {% if typeinvoice.key == payment_clickgem_typeinvoice %}
+                      <option value="{{ typeinvoice.key }}" selected="selected">{{ typeinvoice.value }}</option>
+                    {% else %}
+                      <option value="{{ typeinvoice.key }}">{{ typeinvoice.value }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="input-completed-status">{{ entry_duedate }}</label>
+              <div class="col-sm-10">
+                <select name="payment_clickgem_duedate" id="input-completed-status" class="form-control">
+                  {% for duedate in clickgem_duedate %}
+                    {% if duedate.key == payment_clickgem_duedate %}
+                      <option value="{{ duedate.key }}" selected="selected">{{ duedate.value }}</option>
+                    {% else %}
+                      <option value="{{ duedate.key }}">{{ duedate.value }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="input-completed-status">{{ entry_status_id }}</label>
+              <div class="col-sm-10">
+                <select name="payment_clickgem_order_status_id" id="input-completed-status" class="form-control">
+                  {% for order_status in order_statuses %}
+                    {% if order_status.order_status_id == payment_clickgem_order_status_id %}
+                      <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+                    {% else %}
+                      <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
+              <div class="col-sm-10">
+                <select name="payment_clickgem_geo_zone_id" id="input-geo-zone" class="form-control">
+                  <option value="0">{{ text_all_zones }}</option>
+                  {% for geo_zone in geo_zones %}
+                  {% if geo_zone.geo_zone_id == payment_clickgem_geo_zone_id %}
+                  <option value="{{ geo_zone.geo_zone_id }}" selected="selected">{{ geo_zone.name }}</option>
+                  {% else %}
+                  <option value="{{ geo_zone.geo_zone_id }}">{{ geo_zone.name }}</option>
+                  {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
+              <div class="col-sm-10">
+                <select name="payment_clickgem_status" id="input-status" class="form-control">
+                  {% if payment_clickgem_status %}
+                  <option value="1" selected="selected">{{ text_enabled }}</option>
+                  <option value="0">{{ text_disabled }}</option>
+                  {% else %}
+                  <option value="1">{{ text_enabled }}</option>
+                  <option value="0" selected="selected">{{ text_disabled }}</option>
+                  {% endif %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
+              <div class="col-sm-10">
+                <input type="text" name="payment_wechat_pay_sort_order" value="{{ payment_wechat_pay_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
+              </div>
+            </div>
+          </div>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}
